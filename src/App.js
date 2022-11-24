@@ -1,10 +1,11 @@
-import './App.css';
+import { RouterProvider } from 'react-router-dom'; 
+import router from './routes/router';
 
 function App() {
   return (
-    <div className="App">
-         <h1>Home</h1>
-    </div>
+      <section className='max-w-[1333px] mx-auto'>
+        <RouterProvider router={router}/>
+      </section>
   )
 }
 
