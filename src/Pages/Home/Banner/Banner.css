@@ -1,0 +1,7 @@
+.banner{
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.865),rgba(0, 0, 0, 0.265)),url('../../../Assests/Photos/gradient-shapes-abstract-minimalism-wallpaper-preview.jpg');
+    background-size: cover;
+    height: 85vh;
+}
+
+/* linear-gradient(to right, rgb(0, 0, 0),rgba(0, 0, 0, 0.265)), */

@@ -9,7 +9,7 @@ import ktm from '../../Assests/logo/ktm-logo.svg';
 const Navbar = () => {
     return (
        
-      <div className="flex items-center min-h-[4rem] w-full">
+      <section className="flex items-center min-h-[4rem] w-full">
        <div className="navbar-start">
         <div className='flex items-center'>
          <div className="dropdown">
@@ -34,7 +34,7 @@ const Navbar = () => {
          </ul>
          </div>   
          <Link to='/'><img className='w-24 h-20' src={logo} alt="helmet"/></Link> 
-         <Link to='/'><h1 className="text-3xl font-bold">Bike ReSale Club</h1></Link>
+         <Link to='/'><h1 className="text-xl font-bold lg:text-3xl lg:font-bold">Bike ReSale Club</h1></Link>
         </div> 
        </div>
        <div className="navbar-end hidden lg:flex">
@@ -52,7 +52,7 @@ const Navbar = () => {
           <li><Link>Sell</Link></li>
         </ul>
        </div> 
-      </div>
+      </section>
 
     )
 }
