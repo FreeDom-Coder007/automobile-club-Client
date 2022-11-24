@@ -25,7 +25,7 @@ const SecondHandProducts = () => {
             name: 'KTM' 
         },
         {
-            id: 3,
+            id: 4,
             image: suzuki,
             name: 'Suzuki' 
         }
@@ -38,7 +38,7 @@ const SecondHandProducts = () => {
             <div className='brand-container grid grid-cols-1 justify-items-center lg:grid lg:grid-cols-4 gap-y-8'>
               {
                 brandsData.map(brand =>
-                 <Link>    
+                 <Link key={brand.id}>    
                   <div key={brand.id} className="card w-44 shadow-xl border-t p-6">
                    <figure><img className='w-32' src={brand.image} alt={brand.name}/></figure>
                    <h1>{brand.name}</h1>
