@@ -2,7 +2,7 @@ import React from 'react';
 import AdvertisedItems from './AdvertisedItems';
 import Banner from './Banner/Banner';
 import HeroSection from './HeroSection';
-import SecondHandProducts from './SecondHandProducts';
+import ProductCategories from './ProductCategories';
 
 
 const Home = () => {
@@ -10,7 +10,7 @@ const Home = () => {
         <div>
          <Banner/>
          <AdvertisedItems/>
-         <SecondHandProducts/>
+         <ProductCategories/>
          <HeroSection/> 
         </div>
     )
