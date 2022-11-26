@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaMapMarkerAlt } from "react-icons/fa";
 
-const ProductCard = ({product}) => {
+const ProductCard = ({product, setProductInfo}) => {
     const {image, location, name, original_price, resell_price, seller_name, years_of_use} = product
 
     return (
@@ -16,8 +16,8 @@ const ProductCard = ({product}) => {
            <p className='font-semibold'><small>Resell Price: ${resell_price}</small></p>
            <p className='font-semibold'><small>Seller Name: {seller_name}</small></p>
            <p className='font-semibold'><small>Used duration: {years_of_use}</small></p>
-           <div className="card-actions">
-             <button className="btn">Book Now</button>
+           <div className="card-actions"> 
+             <label onClick={() => setProductInfo({name, resell_price})} htmlFor="booking-modal" className="btn bg-black">Book Now</label>
            </div>
           </div>
         </div>

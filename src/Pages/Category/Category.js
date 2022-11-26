@@ -1,13 +1,14 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useState } from 'react'; 
+import { useLoaderData } from 'react-router-dom'; 
 import ProductCard from './ProductCard';
+import ProductBookingModal from './ProductBookingModal';
 
 const Category = () => { 
     const productCategory = useLoaderData()
     const {category_logo, category_name, products} = productCategory
-    
-    console.log(products)
-     
+    const [productInfo, setProductInfo] = useState({})
+
     return (
       <section>  
         <div className="bg-white bg-gradient-to-r from-gray-900 to-gray-600">
@@ -23,9 +24,10 @@ const Category = () => {
         </div>
         <div className='products-container border max-w-[1240px] my-10 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-items-center gap-x-2 gap-y-10'>
           {
-            products.map(product => <ProductCard key={product.productId} product={product}/>)
+            products.map(product => <ProductCard key={product.productId} product={product} setProductInfo={setProductInfo}/>)
           }
         </div>
+        {productInfo && <ProductBookingModal productInfo={productInfo} setProductInfo={setProductInfo}/>}
       </section>     
     )
 }

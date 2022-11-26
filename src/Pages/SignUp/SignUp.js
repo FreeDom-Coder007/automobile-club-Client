@@ -8,20 +8,23 @@ import { AuthContext } from '../../Contexts/AuthProvider';
 
 const SignUp = () => {
     const {register, handleSubmit, formState: {errors}} = useForm()
-    const {createUser, SignInWithGoogle} = useContext(AuthContext)
+    //----Contexts
+    const {createUser, updateUser, SignInWithGoogle} = useContext(AuthContext)
     const [firebaseError, setFirebaseError] = useState('')
     const navigate = useNavigate() 
 
-    const handleSignUp = (data) => {
-        const email = data.email
-        const password = data.password 
+    const handleSignUp = (data) => { 
         setFirebaseError('')
 
-        createUser(email, password)
+        createUser(data.email, data.password)
         .then(result => {
             const user = result.user
             console.log(user)
-            navigate('/') 
+            const userInfo = {displayName: data.name}
+            updateUser(userInfo)
+            .then(() => {})
+            .catch(err => console.log(err.message))
+             navigate('/') 
         })
         .catch(error => {
             setFirebaseError(error.message)
@@ -74,14 +77,14 @@ const SignUp = () => {
                       <input {...register("password", {required: "Password is Required"})} type="password" className='input input-bordered w-full max-w-xs'/>
                       {errors.password && <p className='text-red-500'>{errors.password.message}</p>}  
                     </div>
-                    <div className='form-control mt-3 mb-4'>
-                     <label className='label'><span className='label-text font-semibold'>You Account type</span></label>   
-                     <select className="select select-bordered w-full max-w-xs">
-                      <option disabled selected>Select an Option</option>
+                    {/* <div className='form-control mt-3 mb-4'>
+                     <label className='label'><span className='label-text font-semibold'>Your Account type</span></label>   
+                     <select {...register("role")} className="select select-bordered w-full max-w-xs" required>
+                      <option selected>Select an Option</option>
                       <option>Seller</option>
                       <option>Buyer</option>
                      </select>
-                    </div>
+                    </div> */}
                     {firebaseError && <p className='text-red-500 text-lg text-center'>{firebaseError}</p>}
                     <div className='form-control mt-8 mb-4'> 
                       <input type="submit" value="sign up" className='btn bg-black w-full max-w-xs'/>  
