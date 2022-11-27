@@ -2,12 +2,24 @@ import React from 'react';
 import { useState } from 'react'; 
 import { useLoaderData } from 'react-router-dom'; 
 import ProductCard from './ProductCard';
-import ProductBookingModal from './ProductBookingModal';
+import ProductBookingModal from './ProductBookingModal'; 
+import { useQuery } from '@tanstack/react-query';
 
 const Category = () => { 
     const productCategory = useLoaderData()
-    const {category_logo, category_name, products} = productCategory
-    const [productInfo, setProductInfo] = useState({})
+    const {category_logo, category_name} = productCategory
+    const [productInfo, setProductInfo] = useState({}) 
+    
+    const {data: products = [], refetch} = useQuery({
+       queryKey: ['products', category_name],
+       queryFn: async () => {
+         const res = await fetch(`http://localhost:4000/products?categoryName=${category_name}`)
+         const data = res.json()
+         return data;
+       }
+    }) 
+
+    console.log(products)
 
     return (
       <section>  
@@ -22,12 +34,16 @@ const Category = () => {
           </div>                
          </div>
         </div>
-        <div className='products-container border max-w-[1240px] my-10 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-items-center gap-x-2 gap-y-10'>
-          {
-            products.map(product => <ProductCard key={product.productId} product={product} setProductInfo={setProductInfo}/>)
+        { products?.length ?
+         <div className='products-container border max-w-[1240px] my-10 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-items-center gap-x-2 gap-y-10'>
+          {  
+            products?.map(product => <ProductCard key={product._id} product={product} setProductInfo={setProductInfo}/>) 
           }
-        </div>
-        {productInfo && <ProductBookingModal productInfo={productInfo} setProductInfo={setProductInfo}/>}
+         </div>
+         :
+         <h1 className='text-center text-5xl font-semibold my-10'>No Items available in this category</h1> 
+        }
+        {productInfo && <ProductBookingModal refetch={refetch} productInfo={productInfo} setProductInfo={setProductInfo}/>}
       </section>     
     )
 }

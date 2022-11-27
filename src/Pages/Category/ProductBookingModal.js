@@ -1,13 +1,14 @@
 import React from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../../Contexts/AuthProvider';
-import { FaMapMarkerAlt } from "react-icons/fa";
-import toast from 'react-hot-toast';
+import { FaMapMarkerAlt } from "react-icons/fa"; 
 import { useState } from 'react';
-import { useEffect } from 'react';
+import { useEffect } from 'react'; 
+import toast from 'react-hot-toast';
 
-const ProductBookingModal = ({productInfo, setProductInfo}) => {
-    const {name, resell_price} = productInfo
+
+const ProductBookingModal = ({productInfo, setProductInfo, refetch}) => {
+    const {image, product_name, resell_price} = productInfo
     const {user} = useContext(AuthContext)
 
     const [locations, setLocations] = useState([])
@@ -28,10 +29,25 @@ const ProductBookingModal = ({productInfo, setProductInfo}) => {
         const phoneNumber = form.phone.value
         const location = form.location.value
 
-        const bookingData = {name, email, productName, resellPrice, phoneNumber, location}
+        const bookingData = {image, name, email, productName, resellPrice, phoneNumber, location}
         console.log(bookingData)
-        setProductInfo(null)
-        toast.success('item is booked') 
+
+        fetch('http://localhost:4000/bookings', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(bookingData)
+        })
+        .then(res => res.json())
+        .then(data => {
+             console.log(data)
+             if(data.acknowledged){
+               toast.success('item booked')
+               refetch()
+               setProductInfo(null) 
+             }
+        })  
      }
 
     return ( 
@@ -52,11 +68,11 @@ const ProductBookingModal = ({productInfo, setProductInfo}) => {
                 </div>
                 <div className='form-control my-3'>
                     <label className='font-medium'>Item Name</label> 
-                    <input name='productName' value={name} disabled type="text" className='input font-medium input-bordered w-full'/>
+                    <input name='productName' value={product_name} disabled type="text" className='input font-medium input-bordered w-full'/>
                 </div> 
                 <div className='form-control my-3'>
                     <label className='font-medium'>ReSell Price</label>
-                    <input name='resellPrice' value={`$ ${resell_price}`} disabled type="text" className='input font-medium input-bordered w-full'/>
+                    <input name='resellPrice' value={`${resell_price}`} disabled type="text" className='input font-medium input-bordered w-full'/>
                 </div> 
                 <div className='form-control my-3'>
                     <label className='font-medium'>Phone Number</label> 
@@ -65,16 +81,15 @@ const ProductBookingModal = ({productInfo, setProductInfo}) => {
                 <div className='form-control my-3'>
                     <label className='font-medium flex items-center mb-1'><span className='mr-2'>Location</span> <FaMapMarkerAlt/></label>   
                     <select name='location' className="select select-bordered w-full" required>
-                      <option selected disabled defaultValue="Select your location">Select your location</option>
                       {
-                        locations.map(location => <option key={location} value={location}>{location}</option> )
+                        locations?.map(location => <option key={location} value={location}>{location}</option> )
                       }
                     </select>
                 </div> 
                 <div className='form-control mt-5 mb-4'> 
                   <input type="submit" value="submit" className='btn bg-black'/>  
                 </div>
-            </form>
+            </form> 
            </div>
           </div>
         </div>

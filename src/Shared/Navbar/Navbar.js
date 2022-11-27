@@ -19,7 +19,7 @@ const Navbar = () => {
 
     return (
        
-      <section className="flex items-center min-h-[4rem] w-full">
+      <section className="flex items-center w-full">
        <div className="navbar-start">
         <div className='flex items-center'>
          <div className="dropdown">
@@ -34,16 +34,17 @@ const Navbar = () => {
             <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
             </Link>
             <ul className="p-2 bg-base-200">
-             <li><Link><img className='w-8' src={yamaha} alt="yamaha"/>Yamaha</Link></li>
-             <li><Link><img className='w-8' src={honda} alt="honda" />Honda</Link></li>
-             <li><Link><img className='w-8' src={ktm} alt="ktm"/>KTM</Link></li>
+              <li><Link><img className='w-8' src={yamaha} alt="yamaha"/>Yamaha</Link></li>
+              <li><Link><img className='w-8' src={honda} alt="honda" />Honda</Link></li>
+              <li><Link><img className='w-8' src={ktm} alt="ktm"/>KTM</Link></li>
             </ul>
-           </li>
-           <li><Link>Buy</Link></li>
-           <li><Link>Sell</Link></li>
+           </li> 
            {
              user ? 
-             <button onClick={handleLogOut}><Link>LogOut</Link></button> 
+             <React.Fragment>
+              <li><Link to='/dashboard'>Dashboard</Link></li>
+              <button onClick={handleLogOut}><Link>LogOut</Link></button>
+             </React.Fragment> 
              :
              <React.Fragment>
               <li><Link>SignUp</Link></li>
@@ -60,18 +61,19 @@ const Navbar = () => {
         <ul className="menu menu-horizontal p-0">
           <li><Link to='/'>Home</Link></li>
           <li tabIndex={0}>
-          <Link>Categories<svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg></Link>
+           <Link>Categories<svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg></Link>
            <ul className="p-2 bg-base-200">
             <li><Link><img className='w-8' src={yamaha} alt="yamaha"/>Yamaha</Link></li>
             <li><Link><img className='w-8' src={honda} alt="honda" />Honda</Link></li>
             <li><Link><img className='w-8' src={ktm} alt="ktm"/>KTM</Link></li>
            </ul>
-          </li>
-          <li><Link>Buy</Link></li>
-          <li><Link>Sell</Link></li>
+          </li> 
           {
              user ? 
-             <button onClick={handleLogOut}><Link>LogOut</Link></button> 
+             <React.Fragment>
+              <li className='mr-2'><Link to='/dashboard'>Dashboard</Link></li>
+              <button onClick={handleLogOut}><Link>LogOut</Link></button>
+             </React.Fragment> 
              :
              <React.Fragment>
               <li><Link to='/signup'>SignUp</Link></li>
@@ -79,7 +81,10 @@ const Navbar = () => {
              </React.Fragment>
           }
         </ul>
-       </div> 
+       </div>
+       <label htmlFor="dashboard-drawer" tabIndex={0} className="navbar-end btn btn-ghost lg:hidden">
+           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+       </label> 
       </section>
 
     )

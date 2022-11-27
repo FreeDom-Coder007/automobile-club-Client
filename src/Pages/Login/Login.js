@@ -3,6 +3,8 @@ import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
+import { FcGoogle } from "react-icons/fc"; 
+import toast from 'react-hot-toast';
 
 const Login = () => {
     const {register, handleSubmit, formState: {errors}} = useForm()
@@ -30,9 +32,33 @@ const Login = () => {
         SignInWithGoogle()
         .then(result => {
             const user = result.user
-            console.log(user) 
+            console.log(user)
+            const name = user.displayName
+            const email = user.email
+            const role = 'Buyer' 
+            postUserToDB(name, email, role)
+            navigate(from, {replace: true}) 
         })
         .catch(error => console.log(error.message)) 
+    }
+
+    const postUserToDB = (name, email, role) => {
+        const user = {name, email, role}
+
+        fetch(`http://localhost:4000/users?email=${email}`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if(data.acknowledged){
+               return toast.success(`${role} account created successfully`) 
+            } 
+        })
     }
 
     return (
@@ -58,7 +84,7 @@ const Login = () => {
                     <div className="divider">OR</div>
                 </form>
                 <div className='form-control'> 
-                  <button onClick={handleGoogleSignIn} className='btn bg-black w-full max-w-xs'>Google</button>  
+                  <button onClick={handleGoogleSignIn} className='btn bg-black w-full max-w-xs'><FcGoogle className='mr-2 text-2xl'/><span>Google</span></button>  
                 </div>
             </div>
         </div>

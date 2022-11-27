@@ -7,9 +7,9 @@ const AdvertisedItems = () => {
     const {data: advertisedProdcuts = [], isLoading} = useQuery({
         queryKey: ['advertisedProdcuts'],
         queryFn: async() => {
-            const res = await fetch(`http://localhost:5000/advertised-products`)
+            const res = await fetch(`http://localhost:4000/advertised-products`)
             const data = await res.json()
-            return data
+            return data;
         }
     })
 

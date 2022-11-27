@@ -1,8 +1,11 @@
 import React from 'react';
 import { FaMapMarkerAlt } from "react-icons/fa";
+// import { format } from 'date-fns'; 
 
-const ProductCard = ({product, setProductInfo}) => {
-    const {image, location, name, original_price, resell_price, seller_name, years_of_use} = product
+
+const ProductCard = ({product, setProductInfo}) => { 
+    const {image, location, product_name, original_price, resell_price, seller_name, purchase_year, upload_time} = product
+    // const date = format([upload_time], 'PP') 
 
     return (
         <div className="card w-64 bg-base-100 shadow-xl">
@@ -10,14 +13,15 @@ const ProductCard = ({product, setProductInfo}) => {
             <img src={image} alt="Motor bike" className="rounded-xl"/>
           </figure>
           <div className="card-body">
-           <h2 className="card-title">{name}</h2>
-           <p className='flex items-center'><FaMapMarkerAlt className='mr-2'/> <small>{location}</small></p>
-           <p className='font-semibold'><small>Original Price: ${original_price}</small></p>
-           <p className='font-semibold'><small>Resell Price: ${resell_price}</small></p>
+           <h2 className="card-title">{product_name}</h2> 
+           <p className='font-semibold'><small>Original Price: {original_price}</small></p>
+           <p className='font-semibold'><small>Resell Price: {resell_price}</small></p>
            <p className='font-semibold'><small>Seller Name: {seller_name}</small></p>
-           <p className='font-semibold'><small>Used duration: {years_of_use}</small></p>
+           <p className='font-semibold'><small>Upload Time: {upload_time}</small></p>
+           <p className='font-semibold'><small>Purchase Date:<span className='mr-2'></span>{purchase_year}</small></p>
+           <p className='flex items-center font-medium'><small>{location}</small><FaMapMarkerAlt className='ml-2'/></p>
            <div className="card-actions"> 
-             <label onClick={() => setProductInfo({name, resell_price})} htmlFor="booking-modal" className="btn bg-black">Book Now</label>
+             <label onClick={() => setProductInfo({image, product_name, resell_price})} htmlFor="booking-modal" className="btn bg-black">Book Now</label>
            </div>
           </div>
         </div>
