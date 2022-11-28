@@ -35,8 +35,9 @@ const Login = () => {
             console.log(user)
             const name = user.displayName
             const email = user.email
-            const role = 'Buyer' 
-            postUserToDB(name, email, role)
+            const role = 'Buyer'
+            const image = user.photoURL 
+            postUserToDB(name, email, role, image)
             navigate(from, {replace: true}) 
         })
         .catch(error => console.log(error.message)) 

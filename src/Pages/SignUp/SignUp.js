@@ -16,8 +16,7 @@ const SignUp = () => {
     const navigate = useNavigate() 
 
     const handleSignUp = (data) => { 
-        setFirebaseError('')
-        postUserToDB(data.name, data.email, data.role)      
+        setFirebaseError('')   
         
         const image = data.image[0]
         const formData = new FormData()
@@ -31,6 +30,7 @@ const SignUp = () => {
         .then(imageFile => {
             console.log(imageFile)
             if(imageFile.success){
+               postUserToDB(data.name, data.email, data.role, imageFile.data.url) 
                createUser(data.email, data.password)
                .then(result => {
                 const user = result.user
@@ -61,7 +61,8 @@ const SignUp = () => {
             const name = user.displayName
             const email = user.email
             const role = 'Buyer'
-            postUserToDB(name, email, role)
+            const image = user.photoURL
+            postUserToDB(name, email, role, image)
             navigate('/') 
         })
         .catch(error => {
@@ -70,8 +71,8 @@ const SignUp = () => {
         })   
     }
 
-    const postUserToDB = (name, email, role) => {
-        const user = {name, email, role}
+    const postUserToDB = (name, email, role, image) => {
+        const user = {name, email, role, image}
 
         fetch(`http://localhost:4000/users?email=${email}`, {
             method: 'POST',

@@ -7,10 +7,12 @@ import Login from '../Pages/Login/Login';
 import RouteProtector from "./RouteProtector"; 
 import DashboardLayout from "../Layout/DashboardLayout";
 import MyOrders from "../Layout/MyOrders";
-import Payment from "../Layout/Payment";
 import Dashboard from "../Layout/Dashboard";
 import AddProduct from "../Layout/AddProduct";
 import MyProducts from "../Layout/MyProducts";
+import AllBuyers from "../Pages/AdminPage/AllBuyers";
+import AllSellers from "../Pages/AdminPage/AllSellers";
+// import Payment from "../Layout/Payment";
 
 
 const router = createBrowserRouter([
@@ -56,6 +58,14 @@ const router = createBrowserRouter([
              {
                 path: '/dashboard/addProduct',
                 element: <AddProduct/>
+             },
+             {
+                path: '/dashboard/allBuyers',
+                element: <AllBuyers/>
+             },
+             {
+                path: '/dashboard/allSellers',
+                element: <AllSellers/>
              }
             //  {
             //     path: '/dashboard/payment/:id',

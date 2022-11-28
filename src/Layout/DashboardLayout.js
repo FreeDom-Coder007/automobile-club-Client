@@ -25,7 +25,7 @@ const DashboardLayout = () => {
              <Outlet/> 
             </div> 
             <div className="drawer-side">
-             <label htmlFor="dashboard-drawer" className="drawer-overlay"></label> 
+             <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>             
              <ul className="menu p-4 w-80 bg-base-100 text-base-content"> 
               {   appUser && 
                   appUser?.role === 'Buyer' ? 
@@ -39,7 +39,8 @@ const DashboardLayout = () => {
                  </React.Fragment>
                  :
                  <React.Fragment>
-                  <li><Link>All User</Link></li>
+                  <li><Link to='/dashboard/allBuyers'>All Buyers</Link></li>
+                  <li><Link to='/dashboard/allSellers'>All Sellers</Link></li>
                   <li><Link>Reported items</Link></li>
                  </React.Fragment>
               }

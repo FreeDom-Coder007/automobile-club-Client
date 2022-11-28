@@ -16,7 +16,7 @@ const Dashboard = () => {
 
     return (   
     <div className='flex justify-center'>
-        <div className='border h-4/5 text-center w-96 px-7 py-6 mt-6 shadow mb-10 rounded'>
+        <div className='border text-center w-96 px-7 py-6 mt-6 shadow mb-10'>
             <div className="avatar online">
              <div className="w-24 rounded-full ring ring-offset-base-100 ring-offset-2">
                 <img src={user?.photoURL} alt=''/>

@@ -43,12 +43,20 @@ const ProductBookingModal = ({productInfo, setProductInfo, refetch}) => {
         .then(data => {
              console.log(data)
              if(data.acknowledged){
-               toast.success('item booked')
+               toast.success('item booked') 
                refetch()
                setProductInfo(null) 
              }
         })  
-     }
+    }
+
+    // const handleUpdateStatus = (productName) => {
+    //     fetch(`http://localhost:4000/products/${productName}`,{
+    //         method: 'PUT'
+    //     })
+    //     .then(res => res.json())
+    //     .then(data => console.log(data)) 
+    // }
 
     return ( 
         <div> 
