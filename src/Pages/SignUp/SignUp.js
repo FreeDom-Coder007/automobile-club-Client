@@ -22,7 +22,7 @@ const SignUp = () => {
         const formData = new FormData()
         formData.append('image', image)
 
-        fetch(`https://api.imgbb.com/1/upload?key=55313d2f9a6381719d51e414cdac62c9`,{
+        fetch(`https://api.imgbb.com/1/upload?key=${process.env.RECT_APP_imgbb_key}`,{
             method: 'POST',
             body: formData
         })
