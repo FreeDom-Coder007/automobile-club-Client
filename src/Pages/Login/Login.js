@@ -23,6 +23,7 @@ const Login = () => {
         .then(result => {
            const user = result.user
            console.log(user)
+           getUserToken(email)
            navigate(from, {replace: true}) 
         })
         .catch(error => console.log(error.message))
@@ -36,7 +37,8 @@ const Login = () => {
             const name = user.displayName
             const email = user.email
             const role = 'Buyer'
-            const image = user.photoURL 
+            const image = user.photoURL
+            getUserToken(email) 
             postUserToDB(name, email, role, image)
             navigate(from, {replace: true}) 
         })
@@ -57,8 +59,21 @@ const Login = () => {
         .then(data => {
             console.log(data)
             if(data.acknowledged){
+               getUserToken(email) 
                return toast.success(`${role} account created successfully`) 
             } 
+        })
+    }
+
+    const getUserToken = (email) => {
+        fetch(`http://localhost:4000/jwt?email=${email}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if(data.accessToken){
+               localStorage.setItem('AccessToken', data.accessToken)
+               navigate('/') 
+            }
         })
     }
 
