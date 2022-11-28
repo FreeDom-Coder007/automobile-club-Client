@@ -49,6 +49,7 @@ const AddProduct = () => {
                fetch('http://localhost:4000/products', {
                  method: 'POST',
                  headers: {
+                    authorization: `bearer ${localStorage.getItem('AccessToken')}`,
                     'content-type': 'application/json'
                  },
                  body: JSON.stringify(product)
@@ -66,7 +67,8 @@ const AddProduct = () => {
         })
 
     }
-
+    
+    
     return (
         <div className='flex'>
         <div className='border lg:ml-20 w-96 lg:w-2/3 px-7 py-6 mt-6 shadow mb-10 rounded'>

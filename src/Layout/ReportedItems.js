@@ -8,7 +8,9 @@ const ReportedItems = () => {
     const {data: reportedProducts = [], refetch} = useQuery({
         queryKey: ['reportedProducts'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:4000/reported-products')
+            const res = await fetch('http://localhost:4000/reported-products',{
+               authorization: `bearer ${localStorage.getItem('AccessToken')}`,
+            })
             const data = await res.json()
             return data;
         }

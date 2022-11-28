@@ -5,6 +5,7 @@ import ProductCard from './ProductCard';
 import ProductBookingModal from './ProductBookingModal'; 
 import { useQuery } from '@tanstack/react-query';
 
+
 const Category = () => { 
     const productCategory = useLoaderData()
     const {category_logo, category_name} = productCategory
@@ -19,7 +20,6 @@ const Category = () => {
        }
     }) 
 
-    console.log(products)
 
     return (
       <section>  
