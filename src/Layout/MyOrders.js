@@ -18,9 +18,12 @@ const MyOrders = () => {
     })   
 
     return (
-        <div className="overflow-x-auto border h-5/6">
-         <table className="table w-full"> 
-          <thead>
+        <div className="overflow-x-auto h-5/6">
+         { myBookings.length ?
+           <React.Fragment>
+            <h1 className='text-4xl font-semibold mt-4 mb-6'>My Products</h1>  
+            <table className="table w-full border rounded"> 
+            <thead>
             <tr>
              <th></th>
              <th>Image</th>
@@ -28,8 +31,8 @@ const MyOrders = () => {
              <th>Price</th>
              <th>Action</th>
             </tr>
-          </thead>
-          <tbody> 
+            </thead>
+            <tbody> 
             { myBookings ?
               myBookings?.map((myBook, i) => <tr key={myBook._id}>
                 <th>{i+1}</th>
@@ -47,11 +50,15 @@ const MyOrders = () => {
                :
                <h1>No Items ware added</h1>
             }
-          </tbody>
-         </table>
+            </tbody>
+            </table>
+           </React.Fragment>
+           :
+           <h1 className='text-4xl text-center font-semibold mt-4 mb-6'>No Items were booked!</h1> 
+         } 
         </div>
     )
     
-};
+}
 
 export default MyOrders;

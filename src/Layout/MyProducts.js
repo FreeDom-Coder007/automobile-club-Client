@@ -65,22 +65,25 @@ const MyProducts = () => {
     }
         
     return (
-        <div className="overflow-x-auto w-full border h-5/6"> 
-        <table className="table w-full"> 
-          <thead>
-            <tr>
-              <th></th>
-              <th>Product Image</th>
-              <th>Product Name</th>
-              <th>Original Price</th>
-              <th>Selling Price</th>
-              <th>Advertise</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody> 
-            {
-                myProducts.map((myProduct, i) => <tr key={myProduct._id}>
+        <div className="overflow-x-auto w-full h-5/6">
+          {  myProducts.length ? 
+             <React.Fragment>
+              <h1 className='text-4xl font-semibold mt-4 mb-6'>My Products</h1>     
+              <table className="table w-full border rounded"> 
+                <thead>
+                 <tr>
+                  <th></th>
+                  <th>Product Image</th>
+                  <th>Product Name</th>
+                  <th>Original Price</th>
+                  <th>Selling Price</th>
+                  <th>Advertise</th>
+                  <th>Action</th>
+                 </tr>
+                </thead>
+                <tbody> 
+                {
+                  myProducts.map((myProduct, i) => <tr key={myProduct._id}>
                     <th>{1+i}</th>
                     <td>
                      <div className="avatar">
@@ -95,9 +98,13 @@ const MyProducts = () => {
                     <td><button onClick={() => handleAdvertise(myProduct)} className='btn btn-sm bg-black'>Advertise</button></td>
                     <td><button onClick={() => handleDeleteProduct(myProduct._id)} className='btn btn-sm bg-black'>Delete</button></td>
                   </tr>)
-            }
-          </tbody>          
-        </table>
+                }
+               </tbody>          
+              </table>
+             </React.Fragment>
+             :
+             <h1 className='text-4xl text-center font-semibold mt-4 mb-6'>You do not added products</h1>
+          }   
         </div>
     )
 
