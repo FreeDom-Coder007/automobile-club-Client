@@ -12,6 +12,7 @@ import AddProduct from "../Layout/AddProduct";
 import MyProducts from "../Layout/MyProducts";
 import AllBuyers from "../Pages/AdminPage/AllBuyers";
 import AllSellers from "../Pages/AdminPage/AllSellers";
+import ErrorPage from "../Pages/ErrorPage";
 // import Payment from "../Layout/Payment";
 
 
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
             //     element: <Payment/>
             //  }
         ]
+    },
+    {
+        path: '*',
+        element: <ErrorPage/>
     }
 ])
 

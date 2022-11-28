@@ -13,7 +13,6 @@ const AllSellers = () => {
         }
     }) 
 
-
     const handleDeleteUser = (id) => {
         console.log(id)
         fetch(`http://localhost:4000/users/${id}`,{
@@ -28,7 +27,6 @@ const AllSellers = () => {
             }
         })
     }
-
 
     return (
         <div className="overflow-x-auto">
