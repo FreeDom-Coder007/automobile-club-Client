@@ -30,6 +30,7 @@ const AllBuyers = () => {
 
     return (
         <div className="overflow-x-auto">
+         <h1 className='text-4xl font-semibold mb-6'>All Buyers</h1>   
          <table className="table w-full"> 
           <thead>
            <tr>

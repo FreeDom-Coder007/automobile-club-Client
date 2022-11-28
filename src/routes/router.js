@@ -11,8 +11,9 @@ import Dashboard from "../Layout/Dashboard";
 import AddProduct from "../Layout/AddProduct";
 import MyProducts from "../Layout/MyProducts";
 import AllBuyers from "../Pages/AdminPage/AllBuyers";
-import AllSellers from "../Pages/AdminPage/AllSellers";
-import ErrorPage from "../Pages/ErrorPage";
+import AllSellers from "../Pages/AdminPage/AllSellers"; 
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import Blog from "../Pages/Blog/Blog";
 // import Payment from "../Layout/Payment";
 
 
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
             {
                path: '/',
                element: <Home/> 
+            },
+            {
+                path: '/blog',
+                element: <Blog/>
             },
             {
                 path: '/category/:id',
