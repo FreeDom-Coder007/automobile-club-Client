@@ -14,6 +14,7 @@ import AllBuyers from "../Pages/AdminPage/AllBuyers";
 import AllSellers from "../Pages/AdminPage/AllSellers"; 
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Blog from "../Pages/Blog/Blog";
+import ReportedItems from "../Layout/ReportedItems";
 // import Payment from "../Layout/Payment";
 
 
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
              {
                 path: '/dashboard/allSellers',
                 element: <AllSellers/>
+             },
+             {
+                path: '/dashboard/reportedItems',
+                element: <ReportedItems/>
              }
             //  {
             //     path: '/dashboard/payment/:id',

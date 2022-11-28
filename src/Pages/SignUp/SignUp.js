@@ -28,21 +28,20 @@ const SignUp = () => {
         })
         .then(res => res.json())
         .then(imageFile => {
-            console.log(imageFile)
-            if(imageFile.success){
-               postUserToDB(data.name, data.email, data.role, imageFile.data.url) 
+            const image = imageFile.data.url 
+            if(imageFile.success){ 
                createUser(data.email, data.password)
                .then(result => {
                 const user = result.user
                 console.log(user)
+                postUserToDB(data.name, data.email, data.role, image) 
                 const userInfo = {
                     displayName: data.name,
-                    photoURL: imageFile.data.url
+                    photoURL: image
                 }
                 updateUser(userInfo)
                 .then(() => {})
-                .catch(err => console.log(err.message))
-                 navigate('/') 
+                .catch(err => console.log(err.message)) 
                })
                .catch(error => {
                 setFirebaseError(error.message)
@@ -85,7 +84,20 @@ const SignUp = () => {
         .then(data => { 
             console.log(data)
             if(data.acknowledged){
+               getUserToken(email) 
                toast.success(`${role} Account created successfully`) 
+            }
+        })
+    }
+
+    const getUserToken = (email) => {
+        fetch(`http://localhost:4000/jwt?email=${email}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if(data.accessToken){
+               localStorage.setItem('AccessToken', data.accessToken)
+               navigate('/') 
             }
         })
     }

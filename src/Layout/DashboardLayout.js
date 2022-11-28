@@ -28,8 +28,12 @@ const DashboardLayout = () => {
              <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>             
              <ul className="menu p-4 w-80 bg-base-100 text-base-content"> 
               {   appUser && 
-                  appUser?.role === 'Buyer' ? 
-                  <li><Link to='/dashboard/myOrders'>My orders</Link></li>
+                  appUser?.role === 'admin' ?
+                  <React.Fragment>
+                  <li><Link to='/dashboard/allBuyers'>All Buyers</Link></li>
+                  <li><Link to='/dashboard/allSellers'>All Sellers</Link></li>
+                  <li><Link to='/dashboard/reportedItems'>Reported items</Link></li>
+                 </React.Fragment>
                  : 
                   appUser?.role === 'Seller' ? 
                  <React.Fragment>
@@ -37,12 +41,8 @@ const DashboardLayout = () => {
                   <li><Link to='/dashboard/myProducts'>My Products</Link></li>
                   <li><Link to='/dashboard/addProduct'>Add Product</Link></li> 
                  </React.Fragment>
-                 :
-                 <React.Fragment>
-                  <li><Link to='/dashboard/allBuyers'>All Buyers</Link></li>
-                  <li><Link to='/dashboard/allSellers'>All Sellers</Link></li>
-                  <li><Link>Reported items</Link></li>
-                 </React.Fragment>
+                 : 
+                 <li><Link to='/dashboard/myOrders'>My orders</Link></li>
               }
              </ul> 
             </div>
