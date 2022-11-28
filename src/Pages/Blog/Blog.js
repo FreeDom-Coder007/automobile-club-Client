@@ -6,8 +6,8 @@ const Blog = () => {
   <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
       <h2 class="mb-8 text-4xl tracking-tight font-extrabold dark:text-black">Frequently asked questions</h2>
       <div class="grid pt-8 text-left border-t border-gray-200 md:gap-16 dark:border-gray-700 md:grid-cols-2">
-          <div>
-              <div class="mb-10">
+          <div>  
+          <div class="mb-10">
                   <h3 class="flex text-3xl items-start mb-4 font-medium"> 1 What are the different ways to manage a state in a React application? </h3>
                   <p class="font-medium">The Four Kinds of React State to Manage 1.Local state <br/> 2.Global state <br/> 3.Server state <br/> 4.URL state</p>
               </div>
