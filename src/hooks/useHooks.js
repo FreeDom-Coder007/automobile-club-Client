@@ -6,7 +6,7 @@ const useHook = (email) => {
 
     useEffect(() => {
         if(email){
-            fetch(`http://localhost:4000/users/${email}`)
+            fetch(`https://bike-re-sale-server.vercel.app/users/${email}`)
             .then(res => res.json())
             .then(data => {
                 setLogenInEmail(data)

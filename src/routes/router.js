@@ -14,9 +14,8 @@ import AllBuyers from "../Pages/AdminPage/AllBuyers";
 import AllSellers from "../Pages/AdminPage/AllSellers"; 
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Blog from "../Pages/Blog/Blog";
-import ReportedItems from "../Layout/ReportedItems";
-// import Payment from "../Layout/Payment";
-
+import ReportedItems from "../Layout/ReportedItems"; 
+import Payment from "../Layout/Payment";
 
 const router = createBrowserRouter([
     {
@@ -33,8 +32,8 @@ const router = createBrowserRouter([
             },
             {
                 path: '/category/:id',
-                loader: ({params}) => fetch(`http://localhost:4000/category/${params.id}`),
-                element: <RouteProtector><Category/></RouteProtector>,
+                loader: ({params}) => fetch(`https://bike-re-sale-server.vercel.app/category/${params.id}`),
+                element: <Category/>,
             },  
             {
                 path: '/signup',
@@ -50,39 +49,39 @@ const router = createBrowserRouter([
         path: '/dashboard',
         element: <RouteProtector><DashboardLayout/></RouteProtector>,
         children: [
-             {
+            {
                 path: '/dashboard',
                 element: <Dashboard/>
-             },
-             {
+            },
+            {
                 path: '/dashboard/myOrders',
                 element: <MyOrders/>
-             },
-             {
+            },
+            {
                 path: '/dashboard/myProducts',
                 element: <MyProducts/>
-             },
-             {
+            },
+            {
                 path: '/dashboard/addProduct',
                 element: <AddProduct/>
-             },
-             {
+            },
+            {
                 path: '/dashboard/allBuyers',
                 element: <AllBuyers/>
-             },
-             {
+            },
+            {
                 path: '/dashboard/allSellers',
                 element: <AllSellers/>
-             },
-             {
+            },
+            {
                 path: '/dashboard/reportedItems',
                 element: <ReportedItems/>
-             }
-            //  {
-            //     path: '/dashboard/payment/:id',
-            //     loader: ({params}) => fetch(`http://localhost:4000/bookings/${params.id}`),
-            //     element: <Payment/>
-            //  }
+            },
+            {
+                path: '/dashboard/payment/:id',
+                loader: ({params}) => fetch(`https://bike-re-sale-server.vercel.app/myBooking/${params.id}`), 
+                element: <Payment/>
+            }
         ]
     },
     {
@@ -91,4 +90,4 @@ const router = createBrowserRouter([
     }
 ])
 
-export default router;
+export default router; 

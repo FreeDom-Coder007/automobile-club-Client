@@ -7,17 +7,18 @@ const AllSellers = () => {
     const {data: allSellers = [], refetch} = useQuery({
         queryKey: ['allSellers'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:4000/allSellers',{
-               authorization: `bearer ${localStorage.getItem('AccessToken')}`,
+            const res = await fetch('https://bike-re-sale-server.vercel.app/allSellers',{
+               headers: {
+                 authorization: `bearer ${localStorage.getItem('AccessToken')}`
+               }
             })
             const data = await res.json()
             return data;
         }
     }) 
 
-    const handleDeleteUser = (id) => {
-        console.log(id)
-        fetch(`http://localhost:4000/users/${id}`,{
+    const handleDeleteUser = (id) => { 
+        fetch(`https://bike-re-sale-server.vercel.app/users/${id}`,{
             method: 'DELETE'
         })
         .then(res => res.json())
@@ -28,6 +29,20 @@ const AllSellers = () => {
                refetch() 
             }
         })
+    }
+
+    const handleVerify = (id) => {   
+        fetch(`https://bike-re-sale-server.vercel.app/users/${id}`,{
+            method: 'PUT' 
+        })
+        .then(res => res.json())
+        .then(data => {  
+         console.log(data) 
+         if(data.acknowledged){
+            toast.success('Seller verified')
+            refetch() 
+          }
+        }) 
     }
 
     return (
@@ -41,6 +56,7 @@ const AllSellers = () => {
             <th>Name</th>
             <th>Role</th>
             <th>Email</th>
+            <th>Seller Verify</th>
             <th>Action</th>
            </tr>
           </thead>
@@ -59,6 +75,7 @@ const AllSellers = () => {
                 <td>{seller.name}</td>
                 <td>{seller.role}</td>
                 <td>{seller.email}</td>
+                <td><button disabled={seller?.verified} onClick={() => handleVerify(seller._id)} className='btn btn-sm bg-black'>Verify</button></td>
                 <td><button onClick={() => handleDeleteUser(seller._id)} className='btn btn-sm bg-black'>Delete</button></td>
              </tr>)
            }

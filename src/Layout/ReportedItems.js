@@ -8,36 +8,38 @@ const ReportedItems = () => {
     const {data: reportedProducts = [], refetch} = useQuery({
         queryKey: ['reportedProducts'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:4000/reported-products',{
-               authorization: `bearer ${localStorage.getItem('AccessToken')}`,
-            })
+            const res = await fetch('https://bike-re-sale-server.vercel.app/reported-products')
             const data = await res.json()
             return data;
         }
-    })
- 
-    const handleDeleteProduct = (name) => { 
-        fetch(`http://localhost:4000/reported-products/${name}`, {
+    }) 
+
+    const handleDeleteProduct = (productName) => { 
+        fetch(`https://bike-re-sale-server.vercel.app/reported-products/${productName}`,{
             method: 'DELETE'
         })
         .then(res => res.json())
         .then(data => {
             console.log(data)
             if(data.acknowledged){
-               toast.success('Product deleted') 
-            }
-        })
-
-        fetch(`http://localhost:4000/reportedProducts/${name}`,{
-            method: 'DELETE'
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            if(data.acknowledged){ 
+               toast.success('Product deleted')
                refetch() 
             }
+        }) 
+       
+        // Delete from products collection
+        fetch(`https://bike-re-sale-server.vercel.app/products?productName=${productName}`, {
+          method: 'DELETE'
         })
+        .then(res => res.json())
+        .then(data => console.log(data)) 
+
+        // Delete from advertised prodcuts 
+        fetch(`https://bike-re-sale-server.vercel.app/advertised-products?productName=${productName}`, {
+          method: 'DELETE'
+        })
+        .then(res => res.json())
+        .then(data => console.log(data)) 
     }
 
     return (

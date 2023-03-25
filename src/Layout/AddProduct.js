@@ -35,6 +35,7 @@ const AddProduct = () => {
         .then(imageData => {
             console.log(imageData) 
             if(imageData.success){
+
                 const product = { 
                     category_name: data.categoryName,
                     image: imageData.data.url,
@@ -45,8 +46,9 @@ const AddProduct = () => {
                     purchase_year: data.purchaseYear,
                     upload_time: date,
                     seller_name: user?.displayName 
-                } 
-               fetch('http://localhost:4000/products', {
+                }
+
+               fetch('https://bike-re-sale-server.vercel.app/products', {
                  method: 'POST',
                  headers: {
                     authorization: `bearer ${localStorage.getItem('AccessToken')}`,
@@ -60,8 +62,7 @@ const AddProduct = () => {
                   if(data.acknowledged){
                      toast.success('product added')
                      navigate('/dashboard/myProducts')
-                  }
-
+                  } 
                }) 
             } 
         })
@@ -88,7 +89,7 @@ const AddProduct = () => {
                  <label className="label font-medium"><span className="label-text text-xl flex items-center">Location<FaMapMarkerAlt className='ml-2'/></span></label> 
                  <select {...register("location", {required: "Location required"})} name='location' className="select select-bordered w-full" required>
                     {
-                      locations?.map(location => <option key={location} value={location}>{location}</option> )
+                      locations?.map(location => <option key={location} value={location} selected>{location}</option> )
                     }
                  </select>
                  {errors.location && <p className='text-red-500 font-medium'>{errors.location.message}</p>} 
@@ -111,7 +112,7 @@ const AddProduct = () => {
                 <div className='form-control'>
                  <label className="label font-medium"><span className="label-text text-xl">Product Condition?</span></label>    
                  <select {...register("condition", {required: 'condition is required'})} className="select select-bordered w-full"> 
-                   <option>Exellent</option>
+                   <option selected>Exellent</option>
                    <option>Good</option>
                    <option>Fair</option>
                  </select>
@@ -119,9 +120,9 @@ const AddProduct = () => {
                 </div>
                 <div className='form-control mt-3 mb-4'>
                  <label className='label font-medium'><span className='label-text text-xl'>Please Select a category</span></label>   
-                 <select {...register("categoryName", {required: 'Please Select a category'})} name='condition' className="select select-bordered w-full">  
+                 <select {...register("categoryName", {required: 'Please Select a category'})} className="select select-bordered w-full">  
                   {
-                    categories.map(category => <option key={category}>{category}</option>)
+                    categories.map(category => <option key={category} selected>{category}</option>)
                   }
                  </select>
                  {errors.category && <p className='text-red-500 font-medium'>{errors.category.message}</p>} 

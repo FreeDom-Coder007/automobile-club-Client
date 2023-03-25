@@ -5,10 +5,12 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
 import { FcGoogle } from "react-icons/fc"; 
 import toast from 'react-hot-toast';
+import { useState } from 'react';
 
 const Login = () => {
     const {register, handleSubmit, formState: {errors}} = useForm()
     const {loginUser, SignInWithGoogle} = useContext(AuthContext)
+    const [fireBaseError, setFireBaseError] = useState('')
 
     // Navigate user
     const location = useLocation()
@@ -26,7 +28,10 @@ const Login = () => {
            getUserToken(email)
            navigate(from, {replace: true}) 
         })
-        .catch(error => console.log(error.message))
+        .catch(error => {
+            console.log(error.message)
+            setFireBaseError(error.message)
+        })
     }
 
     const handleGoogleSignIn = () => {
@@ -48,7 +53,7 @@ const Login = () => {
     const postUserToDB = (name, email, role) => {
         const user = {name, email, role}
 
-        fetch(`http://localhost:4000/users?email=${email}`, {
+        fetch(`https://bike-re-sale-server.vercel.app/users`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -66,7 +71,7 @@ const Login = () => {
     }
 
     const getUserToken = (email) => {
-        fetch(`http://localhost:4000/jwt?email=${email}`)
+        fetch(`https://bike-re-sale-server.vercel.app/jwt?email=${email}`)
         .then(res => res.json())
         .then(data => {
             console.log(data)
@@ -93,10 +98,11 @@ const Login = () => {
                       <input {...register("password", {required: "Password is Required"})} type="password" className='input input-bordered w-full max-w-xs'/>
                       {errors.password && <p className='text-red-500'>{errors.password.message}</p>}  
                     </div>
+                    {fireBaseError && <p className='text-medium text-center text-red-500'>{fireBaseError}</p>}
                     <div className='form-control mt-8 mb-4'> 
-                      <input type="submit" value="sign up" className='btn bg-black w-full max-w-xs'/>  
+                      <input type="submit" value="login" className='btn bg-black w-full max-w-xs'/>  
                     </div>
-                    <p className='text-center'>Or create a account<Link className='text-success' to='/signup'>  SignUp</Link></p>
+                    <p className='text-center'>Or create a account<Link className='text-success' to='/signup'> SignUp</Link></p>
                     <div className="divider">OR</div>
                 </form>
                 <div className='form-control'> 
@@ -105,7 +111,7 @@ const Login = () => {
             </div>
         </div>
         
-    );
-};
+    )
+}
 
 export default Login;

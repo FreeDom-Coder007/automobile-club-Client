@@ -7,13 +7,14 @@ import { AuthContext } from '../Contexts/AuthProvider';
 
 const Dashboard = () => {
     const {user} = useContext(AuthContext)
+    const email = user.email
 
     const [appUser, setAppUser] = useState({})
     useEffect(() => {
-        fetch(`http://localhost:4000/users?email=${user?.email}`)
+        fetch(`https://bike-re-sale-server.vercel.app/users/${email}`)
         .then(res => res.json())
         .then(data => setAppUser(data))
-    }, [user?.email])  
+    }, [email])  
 
     return (   
     <div className='flex justify-center'>

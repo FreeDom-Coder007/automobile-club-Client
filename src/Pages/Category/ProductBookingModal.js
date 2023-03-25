@@ -8,8 +8,8 @@ import toast from 'react-hot-toast';
 
 
 const ProductBookingModal = ({productInfo, setProductInfo, refetch}) => {
-    const {image, product_name, resell_price} = productInfo
     const {user} = useContext(AuthContext)
+    const {image, product_name, resell_price} = productInfo
 
     const [locations, setLocations] = useState([])
     useEffect(() => {
@@ -29,10 +29,18 @@ const ProductBookingModal = ({productInfo, setProductInfo, refetch}) => {
         const phoneNumber = form.phone.value
         const location = form.location.value
 
-        const bookingData = {image, name, email, productName, resellPrice, phoneNumber, location}
+        const bookingData = {
+            image, 
+            name, 
+            email, 
+            productName, 
+            resellPrice, 
+            phoneNumber, 
+            location
+        }
         console.log(bookingData)
 
-        fetch('http://localhost:4000/bookings', {
+        fetch('https://bike-re-sale-server.vercel.app/bookings', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -49,14 +57,20 @@ const ProductBookingModal = ({productInfo, setProductInfo, refetch}) => {
              }
         })  
     }
+    
+    const handleDeleteProduct = (productName) => {
+        fetch(`https://bike-re-sale-server.vercel.app/bookedProduct?productName=${productName}`,{
+            method: 'DELETE'
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if(data.acknowledged){
+               refetch() 
+            }
+        })
+    }
 
-    // const handleUpdateStatus = (productName) => {
-    //     fetch(`http://localhost:4000/products/${productName}`,{
-    //         method: 'PUT'
-    //     })
-    //     .then(res => res.json())
-    //     .then(data => console.log(data)) 
-    // }
 
     return ( 
         <div> 
@@ -95,7 +109,7 @@ const ProductBookingModal = ({productInfo, setProductInfo, refetch}) => {
                     </select>
                 </div> 
                 <div className='form-control mt-5 mb-4'> 
-                  <input type="submit" value="submit" className='btn bg-black'/>  
+                  <input onClick={() => handleDeleteProduct(product_name)} type="submit" value="submit" className='btn bg-black'/>  
                 </div>
             </form> 
            </div>

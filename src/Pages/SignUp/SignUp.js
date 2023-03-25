@@ -22,7 +22,7 @@ const SignUp = () => {
         const formData = new FormData()
         formData.append('image', image)
 
-        fetch(`https://api.imgbb.com/1/upload?key=${process.env.RECT_APP_imgbb_key}`,{
+        fetch(`https://api.imgbb.com/1/upload?key=55313d2f9a6381719d51e414cdac62c9`,{
             method: 'POST',
             body: formData
         })
@@ -34,14 +34,15 @@ const SignUp = () => {
                .then(result => {
                 const user = result.user
                 console.log(user)
-                postUserToDB(data.name, data.email, data.role, image) 
+                postUserToDB(data.name, data.email, data.role, image)
                 const userInfo = {
                     displayName: data.name,
                     photoURL: image
                 }
                 updateUser(userInfo)
                 .then(() => {})
-                .catch(err => console.log(err.message)) 
+                .catch(err => console.log(err.message))
+                navigate('/') 
                })
                .catch(error => {
                 setFirebaseError(error.message)
@@ -72,8 +73,7 @@ const SignUp = () => {
 
     const postUserToDB = (name, email, role, image) => {
         const user = {name, email, role, image}
-
-        fetch(`http://localhost:4000/users?email=${email}`, {
+        fetch(`https://bike-re-sale-server.vercel.app/users`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -91,12 +91,12 @@ const SignUp = () => {
     }
 
     const getUserToken = (email) => {
-        fetch(`http://localhost:4000/jwt?email=${email}`)
+        fetch(`https://bike-re-sale-server.vercel.app/jwt?email=${email}`)
         .then(res => res.json())
         .then(data => {
             console.log(data)
             if(data.accessToken){
-               localStorage.setItem('AccessToken', data.accessToken)
+               localStorage.setItem('AccessToken')
                navigate('/') 
             }
         })
@@ -126,7 +126,7 @@ const SignUp = () => {
                     <div className='form-control mt-3 mb-4'>
                      <label className='label'><span className='label-text font-semibold'>Your Account type</span></label>   
                      <select {...register("role", {required: "Select one option"})} className="select select-bordered w-full max-w-xs" required>  
-                      <option>Buyer</option>
+                      <option selected>Buyer</option>
                       <option>Seller</option>
                      </select>
                      {errors.role && <p className='text-red-500'>{errors.role.message}</p>}
@@ -134,7 +134,7 @@ const SignUp = () => {
                     <div className='form-control mb-4'> 
                       <label className="label text-white bg-black text-center btn">
                         <input {...register("image")} type="file" className="w-full hidden"/>
-                        <p className='mx-auto flex items-center'><FaPhotoVideo className=' mr-2'/>Upload Photo</p>
+                        <p className='mx-auto flex items-center'><FaPhotoVideo className='mr-2'/>Upload Photo</p>
                       </label>
                       {errors.photo && <p className='text-red-500'>{errors.photo.message}</p>}  
                     </div>

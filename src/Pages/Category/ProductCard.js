@@ -1,30 +1,33 @@
 import React from 'react';
+import { useContext } from 'react';
 import toast from 'react-hot-toast';
-import { FaMapMarkerAlt } from "react-icons/fa";
-// import { format } from 'date-fns';
+import { FaMapMarkerAlt } from "react-icons/fa"; 
 import { MdReport } from "react-icons/md"; 
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Contexts/AuthProvider';
 
 
-const ProductCard = ({product, setProductInfo}) => { 
-    const {image, location, product_name, original_price, resell_price, seller_name, purchase_year, upload_time} = product
-    // const date = format([upload_time], 'PP') 
+const ProductCard = ({product, setProductInfo}) => {
+   const {user} = useContext(AuthContext)  
+   const {image, location, product_name, original_price, resell_price, seller_name, purchase_year, upload_time} = product
+    
 
-    const handleReportItem = (product) => { 
-       fetch('http://localhost:4000/reported-products', {
+   const handleReportItem = (product) => { 
+      fetch('https://bike-re-sale-server.vercel.app/reported-products', {
           method: 'POST',
           headers: {
              'content-type': 'application/json'
           },
           body: JSON.stringify(product)
-       })
-       .then(res => res.json())
-       .then(data => {
+      })
+      .then(res => res.json())
+      .then(data => {
          console.log(data)
          if(data.acknowledged){
-            toast.success('product reported')
+            toast.success('report submited')
          }
-       })
-    }
+      }) 
+   }
 
     return (
         <div className="card w-64 bg-base-100 shadow-xl">
@@ -41,7 +44,12 @@ const ProductCard = ({product, setProductInfo}) => {
            <p className='flex items-center font-medium'><small>{location}</small><FaMapMarkerAlt className='ml-2'/></p>
            <div className="card-actions">
             <button onClick={() => handleReportItem(product)} className='flex items-center btn btn-sm'><span className=' mr-2'>Report to Admin</span><MdReport className='text-2xl'/></button>
-            <label onClick={() => setProductInfo({image, product_name, resell_price})} htmlFor="booking-modal" className="btn bg-black">Book Now</label>
+            {
+              user ?
+              <label onClick={() => setProductInfo({image, product_name, resell_price})} htmlFor="booking-modal" className="btn bg-black">Book Now</label>
+              :
+              <Link className="btn bg-black" to='/login'>Book Now</Link> 
+            }
            </div>
           </div>
         </div>

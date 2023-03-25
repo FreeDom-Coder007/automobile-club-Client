@@ -8,14 +8,14 @@ import { useQuery } from '@tanstack/react-query';
 
 const Category = () => { 
     const productCategory = useLoaderData()
-    const {category_logo, category_name} = productCategory
+    const {category_logo, category_name} = productCategory 
     const [productInfo, setProductInfo] = useState({}) 
     
     const {data: products = [], refetch} = useQuery({
        queryKey: ['products', category_name],
        queryFn: async () => {
-         const res = await fetch(`http://localhost:4000/products?categoryName=${category_name}`)
-         const data = res.json()
+         const res = await fetch(`https://bike-re-sale-server.vercel.app/products?categoryName=${category_name}`)
+         const data = await res.json() 
          return data;
        }
     }) 

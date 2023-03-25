@@ -4,13 +4,14 @@ import { useContext } from 'react';
 import { toast } from 'react-toastify'; 
 import { AuthContext } from '../Contexts/AuthProvider';
 
+
 const MyProducts = () => {
     const {user} = useContext(AuthContext) 
 
     const {data: myProducts = [], refetch} = useQuery({
         queryKey: ['myProducts', user?.displayName],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:4000/myProducts?sellerName=${user?.displayName}`,{
+            const res = await fetch(`https://bike-re-sale-server.vercel.app/myProducts?sellerName=${user?.displayName}`,{
                 headers: {
                     authorization: `bearer ${localStorage.getItem('AccessToken')}`
                 }
@@ -21,7 +22,7 @@ const MyProducts = () => {
     })
 
     const handleDeleteProduct = (id) => {
-        fetch(`http://localhost:4000/products/${id}`, {
+        fetch(`https://bike-re-sale-server.vercel.app/products/${id}`, {
             method: 'DELETE', 
         })
         .then(res => res.json())
@@ -43,7 +44,7 @@ const MyProducts = () => {
     }
 
     const handleAdvertise = (myProduct) => { 
-        fetch(`http://localhost:4000/advertised-products`, {
+        fetch(`https://bike-re-sale-server.vercel.app/advertised-products`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -52,19 +53,10 @@ const MyProducts = () => {
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
-            if(data.acknowledged){
-                toast.success(<h1 className='text-center'>Product Advertised</h1>, {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });  
-            }
+             console.log(data)
+             if(data.acknowledged){
+                toast.success('Product promoted')   
+             }
         })
     }
         
