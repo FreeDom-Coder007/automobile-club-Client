@@ -1,8 +1,8 @@
-import React from 'react';
-import logo from '../../Assests/logo/logo.png'; 
+import React from 'react'; 
 import { Link, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
-import { AuthContext } from '../../Contexts/AuthProvider'; 
+import { AuthContext } from '../../Contexts/AuthProvider';
+import logo from "../../Assests/Icons/logo.png"; 
 
 
 const Navbar = () => {
@@ -40,32 +40,32 @@ const Navbar = () => {
            }
          </ul>
          </div>   
-         <Link to='/'><img className='w-24 h-20' src={logo} alt="helmet"/></Link> 
-         <Link to='/'><h1 className="text-xl font-bold lg:text-3xl lg:font-bold">Bike ReSale Club</h1></Link>
+         <Link to='/'><img className='w-6 h-6 lg:w-14 lg:h-14' src={logo} alt="helmet"/></Link> 
+         <Link to='/'><h1 className="text-xl font-bold lg:text-3xl lg:font-bold">Automobiles Club</h1></Link>
         </div> 
        </div>
        <div className="navbar-end hidden lg:flex">
-        <ul className="menu menu-horizontal p-0">
+        <ul className="menu menu-horizontal p-0 font-bold">
           <li><Link to='/'>Home</Link></li>
           <li><Link to='/blog'>Blog</Link></li> 
           {
              user ? 
-             <React.Fragment>
+            <React.Fragment>
               <li className='mr-2'><Link to='/dashboard'>Dashboard</Link></li>
               <li onClick={handleLogOut}><Link>LogOut</Link></li>
               <li>
                <div className="avatar">
-                 <div className="w-12 rounded-full">
+                 <div className="w-10 rounded-full">
                   <img src={user?.photoURL} alt='user' title={user?.displayName}/>
                  </div>
                </div>
               </li>
-             </React.Fragment> 
+            </React.Fragment> 
              :
-             <React.Fragment>
+            <React.Fragment>
               <li><Link to='/signup'>SignUp</Link></li>
               <li><Link to='/login'>Login</Link></li>
-             </React.Fragment>
+            </React.Fragment>
           }
         </ul>
        </div>

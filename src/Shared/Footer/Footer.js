@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../Assests/logo/logo.png';
+import logo from '../../Assests/Icons/logo.png';
 
 const Footer = () => {
     return (
         
       <footer className="footer p-10 bg-base-200 text-base-content">
         <div>
-          <img className='w-24' src={logo} alt="helmet" />
+          <img className='w-16' src={logo} alt="helmet" />
           <p><span className='text-xl font-semibold'>Bike ReSale Club inc.</span><br/>Seeling reliable Second hand Bike since 2022</p>
         </div> 
         <div>
